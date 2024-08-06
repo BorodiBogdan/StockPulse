@@ -15,7 +15,7 @@ const Navbar = () => {
                 <Link href='/' className='p-4'>Home</Link>
                 <Link href='/' className='p-4'>About</Link>
                 <Link href='/' className='p-4'>Contact</Link>
-                <Link href='/login' className='px-2 py-1 rounded-2xl bg-blue-600 text-white'>Log in</Link>
+                <Link href='/auth/login' className='px-2 py-1 rounded-2xl bg-blue-600 text-white'>Log in</Link>
             </div>
         </nav>
 
