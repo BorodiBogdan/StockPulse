@@ -1,9 +1,15 @@
+'use server'
+
 import Link from 'next/link'
 import React from 'react'
+import { getServerSession } from 'next-auth/next'
+import { options } from '../app/api/auth/[...nextauth]/options' // Adjust the import path if necessary
+import ClientNavbar from './ClientNavbar'
 
-const Navbar = () => {
+export default async function Navbar() {
+    const session = await getServerSession(options)
+
     return (
-
         <nav className='flex justify-between items-center h-16 text-black shadow-sm font-mono absolute w-screen z-[100] bg-slate-300' role='navigation'>
             <a href='/' className='pl-8'>StockSearch</a>
             <div className='px-4 cursor-pointer md:hidden'>
@@ -15,11 +21,8 @@ const Navbar = () => {
                 <Link href='/' className='p-4'>Home</Link>
                 <Link href='/' className='p-4'>About</Link>
                 <Link href='/' className='p-4'>Contact</Link>
-                <Link href='/auth/login' className='px-2 py-1 rounded-2xl bg-blue-600 text-white'>Log in</Link>
+                <ClientNavbar session={session} />
             </div>
         </nav>
-
     )
 }
-
-export default Navbar
