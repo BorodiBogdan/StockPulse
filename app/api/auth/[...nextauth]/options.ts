@@ -12,7 +12,7 @@ export const options: NextAuthOptions = {
             },
             async authorize(credentials) {
                 try {
-                    const response = await fetch(`${process.env.NEXTAUTH_URL}/api/users`);
+                    const response = await fetch("/api/users");
                     const users = await response.json();
 
                     if (!response.ok) {
