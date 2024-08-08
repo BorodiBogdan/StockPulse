@@ -1,5 +1,6 @@
 import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { verifyPassword } from "../../../../lib/hashPassword";
 
 export const options: NextAuthOptions = {
     providers: [
@@ -10,16 +11,28 @@ export const options: NextAuthOptions = {
                 password: { label: "Password", type: "password", placeholder: "***********" }
             },
             async authorize(credentials) {
-                // Hardcoded user credentials for demonstration
-                const user = { id: '1', username: 'Smith', password: 'password' };
+                try {
+                    const response = await fetch(`${process.env.NEXTAUTH_URL}/api/users`);
+                    const users = await response.json();
 
-                console.log('Received credentials:', credentials);
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch users');
+                    }
 
-                if (credentials?.username === user.username && credentials?.password === user.password) {
-                    console.log('Authentication successful');
-                    return { id: user.id, name: user.username, email: `${user.username}@example.com` };
-                } else {
-                    console.log('Authentication failed');
+                    // Iterate over the fetched users to find a match
+                    const user = users.find((user: { username: string, password: string }) =>
+                        user.username === credentials?.username && verifyPassword(credentials?.password, user.password)
+                    );
+
+                    if (user) {
+                        console.log('Authentication successful');
+                        return { id: user.id, name: user.username, email: `${user.username}@example.com` };
+                    } else {
+                        console.log('Authentication failed');
+                        return null;
+                    }
+                } catch (error) {
+                    console.error('Error in authorize function:', error);
                     return null;
                 }
             }
