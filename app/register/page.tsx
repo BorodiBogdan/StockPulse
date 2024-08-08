@@ -30,8 +30,6 @@ async function getUsers() {
     return data;
 }
 
-
-
 const Page = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -131,7 +129,7 @@ const Page = () => {
                         onChange={(e) => setConfirmPassword(e.target.value)} />
                     <p className={`text-red-500`}
                         style={{ display: error.confirmPassword ? 'block' : 'none' }}
-                    >Passwords don't match</p>
+                    >Passwords don&apos;t match</p>
                 </div>
 
                 <div className='flex items-center justify-between'>
