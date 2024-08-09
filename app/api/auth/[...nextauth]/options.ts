@@ -12,8 +12,7 @@ export const options: NextAuthOptions = {
             },
             async authorize(credentials) {
                 try {
-                    console.log('NEXTAUTH_URL:', process.env.NEXTAUTH_URL);
-                    const response = await fetch(`${process.env.NEXTAUTH_URL}/api/users`);
+                    const response = await fetch(`https://activity-finder-roan.vercel.app/api/users`);
                     const users = await response.json();
 
                     if (!response.ok) {
@@ -33,7 +32,6 @@ export const options: NextAuthOptions = {
                         return null;
                     }
                 } catch (error) {
-                    console.log('NEXTAUTH_URL:', process.env.NEXTAUTH_URL);
                     console.error('Error in authorize function:', error);
                     return null;
                 }
