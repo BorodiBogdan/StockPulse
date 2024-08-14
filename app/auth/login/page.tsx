@@ -26,39 +26,40 @@ const Login = () => {
     };
 
     return (
-        <div className='bg-white h-screen flex items-center justify-center'>
-            <form onSubmit={handleSubmit} className=''>
+        <div className='h-screen bg-gradient-to-br from-gray-900 to-black flex items-center justify-center text-white'>
+            <form onSubmit={handleSubmit} className='bg-gray-800 p-8 rounded-lg shadow-xl w-full max-w-sm'>
+                <h2 className='text-3xl font-extrabold text-center mb-6'>Sign In</h2>
                 <div className='mb-4'>
-                    <label htmlFor='email' className='block text-gray-700 text-sm font-bold mb-2'>Username</label>
+                    <label htmlFor='username' className='block text-gray-300 text-sm font-bold mb-2'>Username</label>
                     <input
                         type='username'
                         name='username'
                         id='username'
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
-                        className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-                        placeholder='username'
+                        className='shadow appearance-none border border-gray-700 rounded w-full py-3 px-4 text-gray-300 bg-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent'
+                        placeholder='Enter your username'
                     />
                 </div>
                 <div className='mb-6'>
-                    <label htmlFor='password' className='block text-gray-700 text-sm font-bold mb-2'>Password</label>
+                    <label htmlFor='password' className='block text-gray-300 text-sm font-bold mb-2'>Password</label>
                     <input
                         type='password'
                         name='password'
                         id='password'
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className='shadow appearance-none border border-red rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline'
+                        className='shadow appearance-none border border-gray-700 rounded w-full py-3 px-4 text-gray-300 bg-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent'
                         placeholder='******************'
                     />
                 </div>
                 <div className='flex items-center justify-between'>
                     <button
-                        className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
+                        className='bg-green-500 hover:bg-green-400 text-black font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline transition duration-300 ease-in-out transform hover:scale-105'
                         type='submit'>
                         Sign In
                     </button>
-                    <Link href="/register" className='inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800'>
+                    <Link href="/register" className='inline-block align-baseline font-bold text-sm text-green-400 hover:text-green-300 transition duration-300 ease-in-out'>
                         Create an Account
                     </Link>
                 </div>
