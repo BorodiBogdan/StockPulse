@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { signOut } from 'next-auth/react';
+import { Session } from 'inspector';
 
 export default function NavbarClient({ session }: { session: any }) {
     const [isOpen, setIsOpen] = useState(false); // State to handle the dropdown visibility
@@ -25,19 +26,26 @@ export default function NavbarClient({ session }: { session: any }) {
                 <Link href='/' className='hover:text-gray-400 transition-colors duration-200'>
                     Home
                 </Link>
+                {
+                    session &&
+                    <Link href='/stocks' className='hover:text-gray-400 transition-colors duration-200'>
+                        My stocks
+                    </Link>
+                }
                 <Link href='/about' className='hover:text-gray-400 transition-colors duration-200'>
                     About
                 </Link>
                 <Link href='/contact' className='hover:text-gray-400 transition-colors duration-200'>
                     Contact
                 </Link>
+
                 {session ? (
-                    <a href='/' className='px-2 rounded-2xl bg-gradient-to-r from-green-400 to-green-500 hover:from-green-500 hover:to-green-600 text-black font-bold'
+                    <Link href='/' className='px-2 rounded-2xl bg-gradient-to-r from-green-400 to-green-500 hover:from-green-500 hover:to-green-600 text-black font-bold'
                         onClick={async (e) => {
                             e.preventDefault()
                             await signOut({ redirect: true, callbackUrl: '/' })
                         }}
-                    >log-out</a>
+                    >log-out</Link>
                 ) : (
                     <Link href='/auth/login' className='px-2 rounded-2xl bg-gradient-to-r from-green-400 to-green-500 hover:from-green-500 hover:to-green-600 text-black font-bold'>log-in</Link>
                 )}
@@ -52,6 +60,12 @@ export default function NavbarClient({ session }: { session: any }) {
                     <Link href='/' className='text-xl hover:text-gray-400 transition-colors duration-200' onClick={toggleMenu}>
                         Home
                     </Link>
+                    {
+                        session &&
+                        <Link href='/stocks' className='text-xl hover:text-gray-400 transition-colors duration-200'>
+                            My stocks
+                        </Link>
+                    }
                     <Link href='/about' className='text-xl hover:text-gray-400 transition-colors duration-200' onClick={toggleMenu}>
                         About
                     </Link>

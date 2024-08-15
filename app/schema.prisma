@@ -8,13 +8,33 @@ datasource db {
     directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
+enum Role {
+    USER
+    ADMIN
+}
+
 model User {
     id        String   @id @default(cuid())
     username  String   @unique
     email     String   @unique
     password  String
+    role      Role     @default(USER)
     createdAt DateTime @default(now()) @map(name: "created_at")
     updatedAt DateTime @updatedAt @map(name: "updated_at")
 
+    // This is the many-to-many relation field pointing to the Stock model
+    stocks Stock[]
+
     @@map(name: "users")
+}
+
+model Stock {
+    id        String   @id @default(cuid())
+    symbol    String   @unique
+    name      String
+    createdAt DateTime @default(now()) @map(name: "created_at")
+    updatedAt DateTime @updatedAt @map(name: "updated_at")
+
+    // This field links the Stock to a Users and completes the relation
+    user User[]
 }
