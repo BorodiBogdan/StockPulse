@@ -1,5 +1,3 @@
-'use server';
-
 import React from 'react';
 import { getServerSession } from 'next-auth/next';
 import { options } from '../app/api/auth/[...nextauth]/options'; // Adjust the import path if necessary
