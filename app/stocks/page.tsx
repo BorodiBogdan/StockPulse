@@ -17,7 +17,7 @@ export default async function Page() {
     }
 
     // Fetch all the stocks the user has saved
-    const response = await fetch(`http://localhost:3000/api/stocks?username=${session.user.name}`).then((res) =>
+    const response = await fetch(`https://activity-finder-roan.vercel.app/api/stocks?username=${session.user.name}`).then((res) =>
         res.json()
     );
 

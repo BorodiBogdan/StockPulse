@@ -24,7 +24,7 @@ export default async function StockDetails({ params }: { params: { slug: string 
     if (!session)
         notFound();
 
-    const stock = await fetch(`http://localhost:3000/api/getStockInfo?symbol=${params.slug}`).then((res) =>
+    const stock = await fetch(`https://activity-finder-roan.vercel.app/api/getStockInfo?symbol=${params.slug}`).then((res) =>
         res.json()
     );
 
