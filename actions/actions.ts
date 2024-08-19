@@ -1,4 +1,5 @@
 'use server'
+import { revalidatePath } from "next/cache";
 import prisma from "../lib/prisma";
 
 export async function saveStock(symbol: string, username: string | null) {
@@ -57,7 +58,55 @@ export async function saveStock(symbol: string, username: string | null) {
             },
         },
     });
+}
 
-    // Optionally, you can close the Prisma client if needed
-    // await prisma.$disconnect();
+export async function deleteStock(symbol: string, username: string | null) {
+    if (!username || username === ' ' || username === null) {
+        throw new Error('Username is missing');
+    }
+    if (!symbol || symbol === ' ' || symbol === null) {
+        throw new Error('Stock symbol is missing');
+    }
+
+    // Find the user in the database
+    const user = await prisma.user.findUnique({
+        where: {
+            username: username,
+        },
+        select: {
+            id: true,
+            stocks: true,
+        },
+    });
+
+    if (!user) {
+        throw new Error(`User with username ${username} not found`);
+    }
+
+    // Find the stock in the database
+    const stock = await prisma.stock.findUnique({
+        where: {
+            symbol: symbol,
+        },
+    });
+
+    if (!stock) {
+        throw new Error(`Stock with symbol ${symbol} not found`);
+    }
+
+    // Remove the stock from the user's list of stocks
+    await prisma.user.update({
+        where: {
+            id: user.id, // Assuming 'id' is the primary key for the User
+        },
+        data: {
+            stocks: {
+                disconnect: {
+                    id: stock.id, // Assuming 'id' is the primary key for the Stock
+                },
+            },
+        },
+    });
+
+    revalidatePath('/stocks');
 }

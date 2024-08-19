@@ -2,6 +2,8 @@ import React from 'react';
 import Link from 'next/link';
 import { getServerSession } from 'next-auth';
 import { options } from '../api/auth/[...nextauth]/options';
+import { deleteStock } from '../../actions/actions';
+import DeleteStockButton from '../../components/DeleteStockButton';
 
 export default async function Page() {
     const session = await getServerSession(options);
@@ -22,7 +24,7 @@ export default async function Page() {
     );
 
     return (
-        <StocksManager stocks={response} />
+        <StocksManager stocks={response} username={session.user.name} />
     );
 }
 
@@ -33,9 +35,10 @@ interface Stock {
 
 interface StocksManagerProps {
     stocks: Stock[];
+    username: string;
 }
 
-const StocksManager: React.FC<StocksManagerProps> = ({ stocks }) => {
+const StocksManager: React.FC<StocksManagerProps> = ({ stocks, username }) => {
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black text-white p-6">
             <div className="container mx-auto">
@@ -59,11 +62,7 @@ const StocksManager: React.FC<StocksManagerProps> = ({ stocks }) => {
                                             Get Current Data
                                         </button>
                                     </Link>
-                                    <button
-                                        className="w-full p-2 bg-red-500 text-white rounded-md hover:bg-red-600"
-                                    >
-                                        Delete Stock
-                                    </button>
+                                    <DeleteStockButton symbol={stock.symbol} username={username} />
                                 </div>
                             </div>
                         ))}
