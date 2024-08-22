@@ -47,10 +47,9 @@ export default function StockInfo({ session, username, stocks }: { session: any,
     setError(null);
     setSaveError(null);
     setSearchResults(results.slice(0, 5));
-  }, [symbol]);
+  }, [symbol, stocks]);
 
   const handleClickSearchResult = (stock: any) => {
-    console.log(stock);
     setSymbol(stock);
     setSearchResults([]);
   };
@@ -91,7 +90,6 @@ export default function StockInfo({ session, username, stocks }: { session: any,
 
     try {
       const response = await axios.get(`/api/getStockInfo?symbol=${symbol}`);
-      console.log(response.data);
 
       if (response.data.change != 'NA')
         setStockData(response.data);
