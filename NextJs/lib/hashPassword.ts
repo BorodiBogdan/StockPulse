@@ -14,5 +14,12 @@ export async function hashPassword(password: string): Promise<string> {
 
 export async function verifyPassword(password: string, hash: string): Promise<boolean> {
     const derivedKey = await pbkdf2(password, '', iterations, keyLength, digest);
-    return hash === derivedKey.toString('hex');
+    console.log('Derived key:', derivedKey.toString('hex'));
+    console.log('Hash:', hash);
+    console.log('Password:', password);
+
+    if (derivedKey.toString('hex') === hash)
+        return true;
+    else
+        return false;
 }

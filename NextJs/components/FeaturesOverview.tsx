@@ -12,7 +12,7 @@ export const FeaturesOverview = () => {
                     <p className="text-gray-400 flex-grow">
                         Stay ahead of the market with our live updates and real-time tracking. Get minute-by-minute insights on the latest stock prices and trends, empowering you to make informed decisions quickly.
                     </p>
-                    <a href="#" className="text-green-400 hover:text-green-500 mt-6 font-semibold">
+                    <a href="#" className="text-blue-400 hover:text-blue-500 mt-6 font-semibold">
                         Learn more &rarr;
                     </a>
                 </div>
@@ -22,7 +22,7 @@ export const FeaturesOverview = () => {
                     <p className="text-gray-400 flex-grow">
                         Dive deep into market data with our advanced analysis tools. Understand the factors that drive stock performance, track historical data, and use our expert insights to make data-driven investment decisions.
                     </p>
-                    <a href="#" className="text-green-400 hover:text-green-500 mt-6 font-semibold">
+                    <a href="#" className="text-blue-400 hover:text-blue-500 mt-6 font-semibold">
                         Discover tools &rarr;
                     </a>
                 </div>
@@ -32,7 +32,7 @@ export const FeaturesOverview = () => {
                     <p className="text-gray-400 flex-grow">
                         Create a portfolio tailored to your investment style. Track your progress, set personalized goals, and receive tailored recommendations that match your financial objectives.
                     </p>
-                    <a href="#" className="text-green-400 hover:text-green-500 mt-6 font-semibold">
+                    <a href="#" className="text-blue-400 hover:text-blue-500 mt-6 font-semibold">
                         Build your portfolio &rarr;
                     </a>
                 </div>
@@ -42,7 +42,7 @@ export const FeaturesOverview = () => {
                     <p className="text-gray-400 flex-grow">
                         Stay informed with the latest market news. Our platform provides you with up-to-date information and analysis on global markets, so you can keep track of events that impact your investments.
                     </p>
-                    <a href="#" className="text-green-400 hover:text-green-500 mt-6 font-semibold">
+                    <a href="#" className="text-blue-400 hover:text-blue-500 mt-6 font-semibold">
                         Stay updated &rarr;
                     </a>
                 </div>
@@ -52,7 +52,7 @@ export const FeaturesOverview = () => {
                     <p className="text-gray-400 flex-grow">
                         Minimize your risks with our built-in risk management features. Use advanced tools to set stop-loss orders, automate trades, and protect your portfolio from sudden market changes.
                     </p>
-                    <a href="#" className="text-green-400 hover:text-green-500 mt-6 font-semibold">
+                    <a href="#" className="text-blue-400 hover:text-blue-500 mt-6 font-semibold">
                         Manage risk &rarr;
                     </a>
                 </div>
@@ -62,7 +62,7 @@ export const FeaturesOverview = () => {
                     <p className="text-gray-400 flex-grow">
                         Gain insights from industry experts and seasoned traders. Access exclusive content, participate in webinars, and follow market leaders to refine your investment strategy.
                     </p>
-                    <a href="#" className="text-green-400 hover:text-green-500 mt-6 font-semibold">
+                    <a href="#" className="text-blue-400 hover:text-blue-500 mt-6 font-semibold">
                         Get advice &rarr;
                     </a>
                 </div>

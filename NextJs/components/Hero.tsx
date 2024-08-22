@@ -20,7 +20,7 @@ const Hero = () => {
                 <p className="text-lg md:text-xl max-w-2xl mb-8 mx-auto animate-slide-in text-shadow-lg">
                     Get real-time insights into the market's leading stocks. Analyze trends, track performance, and make informed investment decisions with our cutting-edge stock analysis tools.
                 </p>
-                <a href="home" className="px-8 py-4 bg-gradient-to-r from-green-400 to-green-500 hover:from-green-500 hover:to-green-600 transition-all duration-300 text-black text-lg md:text-xl font-bold rounded-full shadow-lg transform hover:scale-105">
+                <a href="home" className="px-8 py-4 bg-gradient-to-r from-blue-400 to-blue-500 hover:from-blue-500 hover:to-blue-600 transition-all duration-300 text-black text-lg md:text-xl font-bold rounded-full shadow-lg transform hover:scale-105">
                     Get Started
                 </a>
             </div>
