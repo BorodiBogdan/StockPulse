@@ -17,19 +17,53 @@ const defaultStock = {
   change_p: 0.53,
 };
 
-
-export default function StockInfo({ session, username }: { session: any, username: string | null }) {
+export default function StockInfo({ session, username, stocks }: { session: any, username: string | null, stocks: any }) {
   const [stockData, setStockData] = useState<any>(defaultStock); // Default stock data
   const [symbol, setSymbol] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [savedStock, setSavedStock] = useState<string | null>(null);
   const [saveError, setSaveError] = useState<string | null>(null);
+  const [searchResults, setSearchResults] = useState<string[]>([]); // keep track of the stocks that match user's search
+
+  function verifyStock(symbol: string) {
+    const stock = stocks[0].find((stock: any) => stock.symbol === symbol);
+    return stock ? true : false;
+  }
+
+  useEffect(() => {
+    if (symbol === '') {
+      setSearchResults([]);
+      return;
+    }
+    //match the symbol with the stocks in the database
+
+    var results = [];
+
+    if (stocks.length > 0)
+      results = stocks[0].filter((stock: any) => stock.symbol.includes(symbol));
+
+    //maximum 5 results
+    setError(null);
+    setSaveError(null);
+    setSearchResults(results.slice(0, 5));
+  }, [symbol]);
+
+  const handleClickSearchResult = (stock: any) => {
+    console.log(stock);
+    setSymbol(stock);
+    setSearchResults([]);
+  };
+
+  // keep track of the stocks that match user's search
 
   const handleSaveStock = async () => {
     setError(null); // Clear previous errors
 
     try {
+      //if the symbol is not in results, then it is not a valid stock
+      if (verifyStock(symbol) === false) throw new Error('Invalid stock symbol');
+
       await saveStock(symbol, username);
       setSaveError(null);
     } catch (err: any) {
@@ -40,6 +74,13 @@ export default function StockInfo({ session, username }: { session: any, usernam
 
   // Fetch stock data when user clicks search
   const fetchStockInfo = async () => {
+
+    //check if the stock is in the database 
+    if (verifyStock(symbol) === false) {
+      setError('Stock not found');
+      return;
+    }
+
     if (!symbol) {
       setError('Please enter a stock symbol');
       return;
@@ -77,36 +118,55 @@ export default function StockInfo({ session, username }: { session: any, usernam
       <p className='pb-10 text-3xl font-bold text-center p-2'>Search for stocks all over the world!!</p>
       <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Left Side - Search Bar */}
-        <div className="flex flex-col justify-center items-start space-y-4 bg-gray-800 p-6 rounded-lg shadow-lg">
+        <div className="flex flex-col  items-start space-y-4 bg-gray-800 p-6 rounded-lg shadow-lg min-h-[270px] relative">
           <h2 className="text-3xl font-bold text-blue-400 mb-2">Stock Information</h2>
           <p className="text-gray-300 mb-4">Enter a stock symbol to get real-time information.</p>
 
-          <input
-            type="text"
-            value={symbol}
-            onChange={(e) => setSymbol(e.target.value.toUpperCase())}
-            placeholder="Enter stock symbol"
-            className="w-full p-3 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
+          <div className='flex flex-row w-full gap-2'>
+            <input
+              type="text"
+              value={symbol}
+              onChange={(e) => setSymbol(e.target.value.toUpperCase())}
+              placeholder="Enter stock symbol"
+              className="w-full p-3 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
 
-          <button
-            onClick={fetchStockInfo}
-            disabled={loading}
-            className={`w-full p-3 rounded-md bg-blue-500 text-white font-semibold transition-all ${loading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-600'}`}
-          >
-            {loading ? 'Fetching...' : 'Search'}
-          </button>
-
-          {error && <p className="text-red-500">{error}</p>}
-
-          {stockData && session && (
             <button
-              onClick={() => handleSaveStock()}
-              className="w-full p-3 mt-4 rounded-md bg-green-500 text-white font-semibold transition-all hover:bg-green-600"
+              onClick={fetchStockInfo}
+              disabled={loading}
+              className={`w-full p-3 rounded-md bg-blue-500 text-white font-semibold transition-all ${loading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-600'} max-w-[120px]`}
             >
-              Save Stock
+              {loading ? 'Fetching...' : 'Search'}
             </button>
-          )}
+
+          </div>
+
+          <div className='w-full'>
+            <div className='pb-20'>
+              <ul>
+                {searchResults.map((stock: any, index: number) => (
+                  <li key={index} className="text-xl text-white bg-gray-700 hover:bg-gray-900 z-[100]"
+
+                    onClick={() => handleClickSearchResult(stock.symbol)}>
+                    {stock.name} | {stock.symbol}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            {session && (
+
+              <div className='absolute bottom-6 w-[90%] min-h-[70px] flex items-center justify-center'>
+                <button
+                  onClick={() => handleSaveStock()}
+                  className="w-40 p-3 mt-4 rounded-md bg-green-500 text-white font-semibold transition-all hover:bg-green-600 absolute bottom-0"
+                >
+                  Save Stock
+                </button>
+              </div>
+
+            )}
+          </div>
+
 
           {savedStock && (
             <p className="text-green-400 mt-4">Saved Stock: {savedStock}</p>
@@ -115,6 +175,8 @@ export default function StockInfo({ session, username }: { session: any, usernam
             saveError &&
             <p className="text-red-500 mt-4">{saveError}</p>
           }
+
+          {error && <p className="text-red-500">{error}</p>}
         </div>
 
         {/* Right Side - Stock Data */}

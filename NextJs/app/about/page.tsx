@@ -52,20 +52,6 @@ export default function AboutUsPage() {
                     </div>
                 </div>
             </section>
-
-            {/* Call to Action Section */}
-            <section className="py-12 text-center max-w-4xl mx-auto">
-                <h2 className="text-3xl font-bold text-blue-400 mb-4">Join Us</h2>
-                <p className="text-lg text-gray-400 mb-6">
-                    Whether you're just getting started with investing or looking to grow your portfolio, StockMaster is here to help. Get in touch with us today to learn more!
-                </p>
-                <a
-                    href="/contact"
-                    className="p-3 rounded-md bg-blue-500 text-white font-semibold text-center transition-all hover:bg-blue-600"
-                >
-                    Contact Us
-                </a>
-            </section>
         </div>
     );
 }

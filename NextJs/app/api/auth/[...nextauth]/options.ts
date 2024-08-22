@@ -1,7 +1,9 @@
 import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { verifyPassword } from "../../../../lib/hashPassword";
+import { hashPassword, verifyPassword } from "../../../../lib/hashPassword";
 
+
+//using database to store sessions
 export const options: NextAuthOptions = {
     providers: [
         CredentialsProvider({
@@ -15,14 +17,26 @@ export const options: NextAuthOptions = {
                     const response = await fetch(`https://activity-finder-roan.vercel.app/api/users`);
                     const users = await response.json();
 
+                    if (credentials == null)
+                        return null;
+
                     if (!response.ok) {
                         throw new Error('Failed to fetch users');
                     }
-
                     // Iterate over the fetched users to find a match
-                    const user = users.find((user: { username: string, password: string }) =>
-                        user.username === credentials?.username && verifyPassword(credentials?.password, user.password)
-                    );
+                    let matchedUser = null;
+
+                    for (const user of users) {
+                        if (user.username === credentials?.username) {
+                            const isPasswordValid = await verifyPassword(credentials?.password, user.password);
+                            if (isPasswordValid) {
+                                matchedUser = user;
+                                break;
+                            }
+                        }
+                    }
+
+                    const user = matchedUser;
 
                     if (user || credentials?.username === 'admin' && credentials?.password === 'admin') {
                         console.log('Authentication successful');
