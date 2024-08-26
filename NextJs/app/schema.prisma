@@ -23,7 +23,8 @@ model User {
     updatedAt DateTime @updatedAt @map(name: "updated_at")
 
     // This is the many-to-many relation field pointing to the Stock model
-    stocks Stock[]
+    stocks         Stock[]
+    stockWatchList StockWatchList[]
 
     @@map(name: "users")
 }
@@ -36,5 +37,16 @@ model Stock {
     updatedAt DateTime @updatedAt @map(name: "updated_at")
 
     // This field links the Stock to a Users and completes the relation
-    user User[]
+    stockWatchList StockWatchList[]
+    user           User[]
+}
+
+model StockWatchList {
+    id        String   @id @default(cuid())
+    stock     Stock[]
+    user      User     @relation(fields: [username], references: [username])
+    username  String
+    createdAt DateTime @default(now()) @map(name: "created_at")
+    updatedAt DateTime @updatedAt @map(name: "updated_at")
+    comments  String[]
 }

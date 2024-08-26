@@ -158,3 +158,74 @@ export async function changePassword(username: string, old_password: string, new
 
     return Promise.resolve();
 }
+
+export async function shareStockWatchList(username: string) {
+    if (!username || username === ' ' || username === null) {
+        throw new Error('Username is missing');
+    }
+
+    // Get the data from the external API
+    let watchList = await fetch("http://localhost:5000/api/home?username=" + username).then((res) => res.json());
+    revalidatePath('/portofolios');
+
+    //if the user has a shared a watchlist in the last 24 hours, we will not allow them to share another one
+    const watchListShared = await prisma.stockWatchList.findFirst({
+        where: {
+            user: {
+                username: username,
+            },
+            createdAt: {
+                gte: new Date(Date.now() - 24 * 60 * 60 * 1000),
+            },
+        },
+    });
+
+    if (watchListShared) {
+        throw new Error('User has already shared a watchlist in the last 24 hours');
+    }
+
+    // Convert `createdAt` and `updatedAt` to Date objects
+    watchList.createdAt = new Date(watchList.createdAt);
+    watchList.updatedAt = new Date(watchList.updatedAt);
+
+    // Use `Promise.all` to await all asynchronous `findUnique` calls and extract the stock symbols
+    const stockSymbols = await Promise.all(
+        watchList.stock.map(async (stock: any) => {
+            // Find the stock in the database
+            let stockData = await prisma.stock.findUnique({
+                where: {
+                    symbol: stock.symbol,
+                },
+            });
+
+            // If stock exists, return its ID or symbol to use for `connect`
+            if (stockData) {
+                revalidatePath('/portofolios');
+                return stockData
+            } else {
+                // Handle the case where the stock is not found
+                throw new Error(`Stock with symbol ${stock.symbol} not found`);
+            }
+        })
+    );
+
+    // Add the watchlist to the database with `connect`
+    await prisma.stockWatchList.create({
+        data: {
+            //we need to connect the user to the watchlist
+            user: {
+                connect: {
+                    username: username,
+                },
+            },
+            createdAt: watchList.createdAt,
+            updatedAt: watchList.updatedAt,
+            stock: {
+                connect: stockSymbols, // Connect existing stocks to the watchlist
+            },
+            comments: watchList.comments,
+        },
+    });
+
+    return Promise.resolve();
+}
