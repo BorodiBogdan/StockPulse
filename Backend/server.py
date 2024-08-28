@@ -24,9 +24,9 @@ def api():
         'updatedAt': datetime.datetime.now()
     }
     
-    #sort the stocks by the stock name
+    #sort the stocks by the date and if the date is the same by stock name
     
-    modified_user_data['stock'] = sorted(modified_user_data['stocks'], key=lambda x: x['symbol'])
+    modified_user_data['stocks'] = sorted(modified_user_data['stocks'], key=lambda x: (x['date'], x['symbol']))
     
     #convert to ISO-8601 DateTime.
     

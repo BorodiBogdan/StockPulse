@@ -46,7 +46,7 @@ const StocksManager: React.FC<StocksManagerProps> = ({ stocks, username }) => {
                 <h1 className="text-4xl font-bold text-center text-blue-400 mb-8">Your Saved Stocks</h1>
 
                 {stocks.length > 0 ? (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative h-full pb-20">
                         {stocks.map((stock: any) => (
                             <div
                                 key={stock.symbol}

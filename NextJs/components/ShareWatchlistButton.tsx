@@ -8,10 +8,10 @@ interface Props {
 
 const ShareWatchlistButton: React.FC<Props> = ({ username }: Props) => {
     return (
-        <div className='flex items-center justify-center w-screen'>
+        <div className='absolute bottom-0 flex items-center justify-center w-screen'>
             <button
                 onClick={() => shareStockWatchList(username)}
-                className="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 mt-4">Share Watchlist</button>
+                className="bg-blue-500 text-white p-2 rounded-mdab hover:bg-blue-600 mt-4">Share Watchlist</button>
         </div>
     )
 }

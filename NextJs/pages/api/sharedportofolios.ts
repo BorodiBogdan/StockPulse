@@ -6,6 +6,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     try {
         var portofolios = await prisma.stockWatchList.findMany({
             select: {
+                id: true,
                 user: true,
                 createdAt: true,
                 stock: true,
@@ -27,6 +28,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 }),
                 createdAt: portofolio.createdAt,
                 comments: portofolio.comments,
+                id: portofolio.id,
             };
         });
 

@@ -229,3 +229,59 @@ export async function shareStockWatchList(username: string) {
 
     return Promise.resolve();
 }
+export async function addComment(comment: string, username: string | null | undefined, watchlistId: string) {
+    if (!username || username === ' ' || username === null) {
+        throw new Error('Username is missing');
+    }
+
+    if (!username || username === ' ' || username === null) {
+        throw new Error('Username is missing');
+    }
+    if (!comment || comment === ' ' || comment === null) {
+        throw new Error('Comment is missing');
+    }
+    if (!watchlistId || watchlistId === ' ' || watchlistId === null) {
+        throw new Error('Stock ID is missing');
+    }
+
+    // Find the user in the database
+    const user = await prisma.user.findUnique({
+        where: {
+            username: username,
+        },
+        select: {
+            id: true,
+        },
+    });
+
+    if (!user) {
+        throw new Error(`User with username ${username} not found`);
+    }
+
+    // Find the stock in the database
+    const stock = await prisma.stockWatchList.findUnique({
+        where: {
+            id: watchlistId,
+        },
+    });
+
+    if (!stock) {
+        throw new Error(`Stock with id ${watchlistId} not found`);
+    }
+
+    // Add the comment to the stock watchlist
+
+    await prisma.stockWatchList.update({
+        where: {
+            id: watchlistId,
+        },
+        data: {
+            comments: {
+                push: comment,
+            },
+        },
+    });
+
+
+    revalidatePath('/portofolios');
+}

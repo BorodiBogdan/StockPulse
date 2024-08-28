@@ -1,9 +1,12 @@
 import React from 'react';
 import Link from 'next/link';
+import { revalidatePath } from 'next/cache';
 
 // Fetching the latest shared portfolios from the API
 export default async function LatestPortfoliosPage() {
     // Fetch the shared portfolios from the API
+    revalidatePath('/api/sharedportofolios');
+
     const response = await fetch('http://localhost:3000/api/sharedportofolios').then((res) => res.json());
     console.log(response);
 
@@ -19,6 +22,7 @@ export default async function LatestPortfoliosPage() {
 }
 
 interface Portfolio {
+    id: string
     user: string;
     stock: {
         id: string;
@@ -32,7 +36,7 @@ interface Portfolio {
 }
 
 const PortfoliosGrid: React.FC<{ portfolios: Portfolio[] }> = ({ portfolios }) => {
-    console.log(portfolios);
+
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {portfolios.map((portfolio, index) => (
@@ -59,7 +63,7 @@ const PortfoliosGrid: React.FC<{ portfolios: Portfolio[] }> = ({ portfolios }) =
                     <div className='flex items-center justify-center'>
                         <div className="absolute h-20 bottom-0 w-full p-4">
                             {/* Button to view the full portfolio */}
-                            <Link href={`/portfolio/${portfolio.user}`}>
+                            <Link href={`/portofolios/${portfolio.id}`}>
                                 <button className="w-full p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
                                     View Portfolio
                                 </button>
