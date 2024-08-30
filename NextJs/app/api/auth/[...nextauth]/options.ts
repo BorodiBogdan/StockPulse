@@ -14,7 +14,7 @@ export const options: NextAuthOptions = {
             },
             async authorize(credentials) {
                 try {
-                    const response = await fetch(`https://activity-finder-roan.vercel.app/api/users`);
+                    const response = await fetch(process.env.API_CALL_URL + `/api/users`);
                     const users = await response.json();
 
                     if (credentials == null)

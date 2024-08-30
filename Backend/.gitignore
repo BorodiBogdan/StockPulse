@@ -2,4 +2,4 @@ include
 Lib
 Scripts
 venv
-.env
+.env*
