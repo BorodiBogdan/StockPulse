@@ -7,7 +7,7 @@ export default async function LatestPortfoliosPage() {
     // Fetch the shared portfolios from the API
     revalidatePath('/api/sharedportofolios');
 
-    const response = await fetch('http://localhost:3000/api/sharedportofolios').then((res) => res.json());
+    const response = await fetch('https://activity-finder-roan.vercel.app/api/sharedportofolios').then((res) => res.json());
     console.log(response);
 
     return (

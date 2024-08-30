@@ -20,7 +20,7 @@ interface Watchlist {
 export default async function LandingPage() {
     // Select the latest 3 shared watchlists
     revalidatePath('/api/sharedportofolios');
-    const response = await fetch('http://localhost:3000/api/sharedportofolios').then((res) => res.json());
+    const response = await fetch('https://activity-finder-roan.vercel.app/api/sharedportofolios').then((res) => res.json());
     const latestWatchlists: Watchlist[] = response.slice(0, 3);
 
     return (

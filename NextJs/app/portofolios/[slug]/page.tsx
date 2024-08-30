@@ -25,7 +25,7 @@ interface Portfolio {
 export default async function PortfolioPage({ params }: { params: { slug: string } }) {
     const session = await getServerSession(options);
     // Get the portfolio data from the API
-    const data = await fetch(`http://localhost:3000/api/portfolio?id=${params.slug}`).then((res) => res.json());
+    const data = await fetch(`https://activity-finder-roan.vercel.app/api/portfolio?id=${params.slug}`).then((res) => res.json());
 
     if (!data.stock)
         return notFound();
