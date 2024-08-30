@@ -1,14 +1,11 @@
 import React from 'react';
-import Link from 'next/link';
-import { revalidatePath } from 'next/cache';
+import Link from 'next/link'
 
 // Fetching the latest shared portfolios from the API
 export default async function LatestPortfoliosPage() {
     // Fetch the shared portfolios from the API
-    revalidatePath('/api/sharedportofolios');
 
-    const response = await fetch('https://activity-finder-roan.vercel.app/api/sharedportofolios').then((res) => res.json());
-    console.log(response);
+    const response = await fetch(process.env.NEXTAUTH_URL + '/api/sharedportofolios').then((res) => res.json());
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black text-white p-6 overflow-x-hidden pt-28">
@@ -36,7 +33,6 @@ interface Portfolio {
 }
 
 const PortfoliosGrid: React.FC<{ portfolios: Portfolio[] }> = ({ portfolios }) => {
-
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {portfolios.map((portfolio, index) => (
@@ -53,7 +49,7 @@ const PortfoliosGrid: React.FC<{ portfolios: Portfolio[] }> = ({ portfolios }) =
                         {portfolio.stock.length > 0 ? (
                             portfolio.stock.map((stock, idx) => (
                                 <p key={idx} className="text-gray-300">
-                                    {stock.name} ({stock.symbol})
+                                    {stock.name} {stock.symbol}
                                 </p>
                             ))
                         ) : (

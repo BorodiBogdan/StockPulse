@@ -34,10 +34,13 @@ export default function NavbarClient({ session }: { session: any }) {
                     </Link>
                 }
                 <Link href='/portofolios' className='hover:text-gray-400 transition-colors duration-200'>
-                    Portofolios
+                    Portfolios
                 </Link>
                 <Link href='/about' className='hover:text-gray-400 transition-colors duration-200'>
                     About
+                </Link>
+                <Link href='/news' className='hover:text-gray-400 transition-colors duration-200'>
+                    News
                 </Link>
 
                 {session ? (
@@ -74,6 +77,9 @@ export default function NavbarClient({ session }: { session: any }) {
                     }
                     <Link href='/about' className='text-xl hover:text-gray-400 transition-colors duration-200' onClick={toggleMenu}>
                         About
+                    </Link>
+                    <Link href='/about' className='text-xl hover:text-gray-400 transition-colors duration-200' onClick={toggleMenu}>
+                        News
                     </Link>
                     {session ? (
                         <div className='flex gap-4 justify-center items-center'>

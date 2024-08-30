@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getServerSession } from 'next-auth';
 import { options } from '../../api/auth/[...nextauth]/options';
-import { addComment } from '../../../actions/actions';
 import AddCommentForm from '../../../components/addCommentForm';
 
 // Interface for the portfolio data
@@ -25,7 +24,7 @@ interface Portfolio {
 export default async function PortfolioPage({ params }: { params: { slug: string } }) {
     const session = await getServerSession(options);
     // Get the portfolio data from the API
-    const data = await fetch(`https://activity-finder-roan.vercel.app/api/portfolio?id=${params.slug}`).then((res) => res.json());
+    const data = await fetch(process.env.NEXTAUTH_URL + `/api/portfolio?id=${params.slug}`).then((res) => res.json());
 
     if (!data.stock)
         return notFound();
@@ -48,13 +47,17 @@ export default async function PortfolioPage({ params }: { params: { slug: string
                         Shared on: {new Date(data.createdAt).toLocaleDateString()}
                     </p>
 
+                    <h1 className="text-2xl font-bold text-blue-400 mb-4">Description:</h1>
+
+                    <p className="text-gray-300 mb-4">{data.description}</p>
+
                     <div className="space-y-2">
-                        <h3 className="text-lg text-white mb-2">Stocks:</h3>
+                        <h3 className="text-2xl font-bold text-blue-400 mb-4">Stocks:</h3>
                         {data.stock.length > 0 ? (
                             data.stock.map((stock: any, idx: number) => (
-                                <p key={idx} className="text-gray-300">
-                                    {stock.name} ({stock.symbol})
-                                </p>
+                                <Link href={`../stocks/${stock.symbol}`} key={idx} className="text-gray-300 hover:text-green-300">
+                                    {stock.symbol}
+                                </Link>
                             ))
                         ) : (
                             <p className="text-gray-300">No stocks shared.</p>
@@ -69,9 +72,15 @@ export default async function PortfolioPage({ params }: { params: { slug: string
                     {/* Existing Comments */}
                     <div className="space-y-4 mb-6">
                         {data.comments.length > 0 ? (
-                            data.comments.map((comment: string, index: number) => (
+                            data.comments.map((comment: any, index: number) => (
                                 <div key={index} className="bg-gray-700 p-4 rounded-md">
-                                    <p className="text-gray-300">{comment}</p>
+                                    <div className='flex justify-between'>
+                                        <p className="text-blue-400 font-bold">{comment.username}</p>
+                                        <p className="text-gray-400 text-sm">
+                                            {new Date(comment.createdAt).toDateString() + " : " + new Date(comment.createdAt).toLocaleTimeString()}
+                                        </p>
+                                    </div>
+                                    <p className="text-gray-300">{comment.description}</p>
                                 </div>
                             ))
                         ) : (

@@ -4,8 +4,11 @@ import prisma from "../../lib/prisma";
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     //get all the shared portofolios
     try {
+        const p = await prisma.stockWatchList.findMany();
+        ;
         var portofolios = await prisma.stockWatchList.findMany({
             select: {
+                description: true,
                 id: true,
                 user: true,
                 createdAt: true,
@@ -13,7 +16,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 comments: true,
             },
         });
-
 
         //we should share just the usename of the user
         var modifiedPortofolios = portofolios.map((portofolio) => {
@@ -29,6 +31,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 createdAt: portofolio.createdAt,
                 comments: portofolio.comments,
                 id: portofolio.id,
+                description: portofolio.description,
             };
         });
 

@@ -42,11 +42,22 @@ model Stock {
 }
 
 model StockWatchList {
-    id        String   @id @default(cuid())
-    stock     Stock[]
-    user      User     @relation(fields: [username], references: [username])
-    username  String
-    createdAt DateTime @default(now()) @map(name: "created_at")
-    updatedAt DateTime @updatedAt @map(name: "updated_at")
-    comments  String[]
+    id          String    @id @default(cuid())
+    stock       Stock[]
+    user        User      @relation(fields: [username], references: [username])
+    username    String
+    description String    @default("No description")
+    createdAt   DateTime  @default(now()) @map(name: "created_at")
+    updatedAt   DateTime  @updatedAt @map(name: "updated_at")
+    comments    Comment[]
+}
+
+model Comment {
+    id          String         @id @default(cuid())
+    watchListId String
+    watchList   StockWatchList @relation(fields: [watchListId], references: [id])
+    username    String
+    createdAt   DateTime       @default(now()) @map(name: "created_at")
+    updatedAt   DateTime       @updatedAt @map(name: "updated_at")
+    description String
 }

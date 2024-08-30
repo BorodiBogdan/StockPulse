@@ -57,7 +57,8 @@ const Page = () => {
             console.log('Data is correct');
             try {
                 await registerUser(mail, username, password);
-                console.log('User registered');
+                window.location.href = '/login';
+                return
             } catch (error) {
                 console.error('An error occurred:', error);
             }

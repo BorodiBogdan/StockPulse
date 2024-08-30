@@ -64,6 +64,7 @@ export default function StockInfo({ session, username, stocks }: { session: any,
       if (verifyStock(symbol) === false) throw new Error('Invalid stock symbol');
 
       await saveStock(symbol, username);
+      setSavedStock("Stock saved successfully");
       setSaveError(null);
     } catch (err: any) {
       // Catch and handle any error from the server-side
@@ -77,14 +78,17 @@ export default function StockInfo({ session, username, stocks }: { session: any,
     //check if the stock is in the database 
     if (verifyStock(symbol) === false) {
       setError('Stock not found');
+      setSavedStock(null);
       return;
     }
 
     if (!symbol) {
+      setSavedStock(null);
       setError('Please enter a stock symbol');
       return;
     }
 
+    setSavedStock(null);
     setLoading(true);
     setError(null);
 

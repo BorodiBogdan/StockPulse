@@ -22,6 +22,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 createdAt: true,
                 stock: true,
                 comments: true,
+                description: true,
             },
         });
 
@@ -40,6 +41,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     createdAt: stock.createdAt,
                 };
             }),
+            description: portofolio.description,
             createdAt: portofolio.createdAt,
             comments: portofolio.comments,
             id: portofolio.id,

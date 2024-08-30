@@ -37,7 +37,7 @@ const Login = () => {
                         id='username'
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
-                        className='shadow appearance-none border border-gray-700 rounded w-full py-3 px-4 text-gray-300 bg-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent'
+                        className='shadow appearance-none border border-gray-700 rounded w-full py-3 px-4 text-gray-300 bg-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent'
                         placeholder='Enter your username'
                     />
                 </div>
@@ -49,17 +49,17 @@ const Login = () => {
                         id='password'
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className='shadow appearance-none border border-gray-700 rounded w-full py-3 px-4 text-gray-300 bg-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent'
+                        className='shadow appearance-none border border-gray-700 rounded w-full py-3 px-4 text-gray-300 bg-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent'
                         placeholder='******************'
                     />
                 </div>
                 <div className='flex items-center justify-between'>
                     <button
-                        className='bg-green-500 hover:bg-green-400 text-black font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline transition duration-300 ease-in-out transform hover:scale-105'
+                        className='bg-blue-500 hover:bg-blue-400 text-black font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline transition duration-300 ease-in-out transform hover:scale-105'
                         type='submit'>
                         Sign In
                     </button>
-                    <Link href="/register" className='inline-block align-baseline font-bold text-sm text-green-400 hover:text-green-300 transition duration-300 ease-in-out'>
+                    <Link href="/register" className='inline-block align-baseline font-bold text-sm text-blue-400 hover:text-blue-300 transition duration-300 ease-in-out'>
                         Create an Account
                     </Link>
                 </div>

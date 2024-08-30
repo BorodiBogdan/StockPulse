@@ -2,6 +2,9 @@
 import { revalidatePath } from "next/cache";
 import prisma from "../lib/prisma";
 import { verifyPassword, hashPassword } from "../lib/hashPassword";
+import { create } from "domain";
+import { connect } from "http2";
+import { watch } from "fs";
 
 export async function saveStock(symbol: string, username: string | null) {
     if (!username || username === ' ' || username === null) {
@@ -159,13 +162,16 @@ export async function changePassword(username: string, old_password: string, new
     return Promise.resolve();
 }
 
-export async function shareStockWatchList(username: string) {
+export async function shareStockWatchList(username: string, description: string) {
     if (!username || username === ' ' || username === null) {
         throw new Error('Username is missing');
     }
 
+    if (!description || description === ' ' || description === null)
+        description = 'No description provided';
+
     // Get the data from the external API
-    let watchList = await fetch("http://localhost:5000/api/home?username=" + username).then((res) => res.json());
+    let watchList = await fetch(process.env.FLASK_SERVER + "/home?username=" + username).then((res) => res.json());
     revalidatePath('/portofolios');
 
     //if the user has a shared a watchlist in the last 24 hours, we will not allow them to share another one
@@ -190,7 +196,7 @@ export async function shareStockWatchList(username: string) {
 
     // Use `Promise.all` to await all asynchronous `findUnique` calls and extract the stock symbols
     const stockSymbols = await Promise.all(
-        watchList.stock.map(async (stock: any) => {
+        watchList.stocks.map(async (stock: any) => {
             // Find the stock in the database
             let stockData = await prisma.stock.findUnique({
                 where: {
@@ -223,24 +229,20 @@ export async function shareStockWatchList(username: string) {
             stock: {
                 connect: stockSymbols, // Connect existing stocks to the watchlist
             },
-            comments: watchList.comments,
+            description: description,
         },
     });
 
     return Promise.resolve();
 }
-export async function addComment(comment: string, username: string | null | undefined, watchlistId: string) {
-    if (!username || username === ' ' || username === null) {
-        throw new Error('Username is missing');
-    }
-
+export async function addComment(comment: string, username: string | null | undefined, idOfTheWatchList: string) {
     if (!username || username === ' ' || username === null) {
         throw new Error('Username is missing');
     }
     if (!comment || comment === ' ' || comment === null) {
-        throw new Error('Comment is missing');
+        return;
     }
-    if (!watchlistId || watchlistId === ' ' || watchlistId === null) {
+    if (!idOfTheWatchList || idOfTheWatchList === ' ' || idOfTheWatchList === null) {
         throw new Error('Stock ID is missing');
     }
 
@@ -258,30 +260,33 @@ export async function addComment(comment: string, username: string | null | unde
         throw new Error(`User with username ${username} not found`);
     }
 
-    // Find the stock in the database
+    // Find the stockWatchList in the database
     const stock = await prisma.stockWatchList.findUnique({
         where: {
-            id: watchlistId,
+            id: idOfTheWatchList,
         },
     });
 
     if (!stock) {
-        throw new Error(`Stock with id ${watchlistId} not found`);
+        throw new Error(`Stock with id ${idOfTheWatchList} not found`);
     }
+
+    // Create the comment object, ensuring the foreign key is correctly assigned
 
     // Add the comment to the stock watchlist
 
-    await prisma.stockWatchList.update({
-        where: {
-            id: watchlistId,
-        },
-        data: {
-            comments: {
-                push: comment,
+    await prisma.comment.create({
+        data:
+        {
+            watchList: {
+                connect: {
+                    id: idOfTheWatchList,
+                },
             },
-        },
+            description: comment,
+            username: username,
+            createdAt: new Date(),
+        }
     });
-
-
-    revalidatePath('/portofolios');
+    revalidatePath('/portofolios/' + idOfTheWatchList);
 }
