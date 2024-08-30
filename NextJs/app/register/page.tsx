@@ -94,7 +94,7 @@ const Page = () => {
                         type='email'
                         name='email'
                         id='email'
-                        className='shadow appearance-none border border-gray-700 rounded w-full py-3 px-4 text-gray-300 bg-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent'
+                        className='shadow appearance-none border border-gray-700 rounded w-full py-3 px-4 text-gray-300 bg-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent'
                         placeholder='Email'
                         onChange={(e) => setMail(e.target.value)}
                     />
@@ -107,7 +107,7 @@ const Page = () => {
                         type='username'
                         name='username'
                         id='username'
-                        className='shadow appearance-none border border-gray-700 rounded w-full py-3 px-4 text-gray-300 bg-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent'
+                        className='shadow appearance-none border border-gray-700 rounded w-full py-3 px-4 text-gray-300 bg-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent'
                         placeholder='Username'
                         onChange={(e) => setUsername(e.target.value)}
                     />
@@ -120,7 +120,7 @@ const Page = () => {
                         type='password'
                         name='password'
                         id='password'
-                        className='shadow appearance-none border border-gray-700 rounded w-full py-3 px-4 text-gray-300 bg-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent'
+                        className='shadow appearance-none border border-gray-700 rounded w-full py-3 px-4 text-gray-300 bg-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent'
                         placeholder='******************'
                         onChange={(e) => setPassword(e.target.value)}
                     />
@@ -133,7 +133,7 @@ const Page = () => {
                         type='password'
                         name='confirm-password'
                         id='confirm-password'
-                        className='shadow appearance-none border border-gray-700 rounded w-full py-3 px-4 text-gray-300 bg-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent'
+                        className='shadow appearance-none border border-gray-700 rounded w-full py-3 px-4 text-gray-300 bg-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent'
                         placeholder='******************'
                         onChange={(e) => setConfirmPassword(e.target.value)}
                     />
@@ -142,13 +142,13 @@ const Page = () => {
 
                 <div className='flex items-center justify-between'>
                     <button
-                        className='bg-green-500 hover:bg-green-400 text-black font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline transition duration-300 ease-in-out transform hover:scale-105'
+                        className='bg-vlue-500 hover:bg-vlue-400 text-black font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline transition duration-300 ease-in-out transform hover:scale-105'
                         type='button'
                         onClick={verifyData}
                     >
                         Register
                     </button>
-                    <Link href="/login" className='inline-block align-baseline font-bold text-sm text-green-400 hover:text-green-300 transition duration-300 ease-in-out pl-5'>
+                    <Link href="/login" className='inline-block align-baseline font-bold text-sm text-vlue-400 hover:text-vlue-300 transition duration-300 ease-in-out pl-5'>
                         Already have an account?
                     </Link>
                 </div>
