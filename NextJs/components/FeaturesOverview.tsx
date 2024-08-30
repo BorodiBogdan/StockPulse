@@ -1,6 +1,6 @@
 export const FeaturesOverview = () => {
     return (
-        <section className="bg-gray-900  py-16 text-white text-center min-h-[1000px] px-4">
+        <section className="bg-gradient-to-b from-gray-900 to-black py-16 text-white text-center min-h-[1000px] px-4">
             <h2 className="text-3xl md:text-5xl font-bold mb-8">Why Choose Us</h2>
             <p className="text-lg md:text-xl max-w-4xl mx-auto mb-12 text-gray-400">
                 Our platform offers a variety of features designed to help you succeed in the stock market. Whether you’re a beginner or an experienced trader, we provide the tools you need to stay ahead of the market.

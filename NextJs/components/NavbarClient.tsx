@@ -33,6 +33,9 @@ export default function NavbarClient({ session }: { session: any }) {
                         My stocks
                     </Link>
                 }
+                <Link href='/portofolios' className='hover:text-gray-400 transition-colors duration-200'>
+                    Portofolios
+                </Link>
                 <Link href='/about' className='hover:text-gray-400 transition-colors duration-200'>
                     About
                 </Link>
