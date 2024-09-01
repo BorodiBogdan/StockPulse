@@ -2,9 +2,6 @@
 import { revalidatePath } from "next/cache";
 import prisma from "../lib/prisma";
 import { verifyPassword, hashPassword } from "../lib/hashPassword";
-import { create } from "domain";
-import { connect } from "http2";
-import { watch } from "fs";
 
 export async function saveStock(symbol: string, username: string | null) {
     if (!username || username === ' ' || username === null) {

@@ -1,19 +1,5 @@
-import axios from 'axios';
 import { getServerSession } from 'next-auth';
 import { notFound } from 'next/navigation';
-
-interface StockData {
-    code: string;
-    timestamp: number;
-    open: number;
-    high: number;
-    low: number;
-    close: number;
-    volume: number;
-    previousClose: number;
-    change: number;
-    change_p: number;
-}
 
 export default async function StockDetails({ params }: { params: { slug: string } }) {
     const session = await getServerSession();

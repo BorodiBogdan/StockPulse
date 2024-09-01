@@ -2,7 +2,6 @@ import React from 'react';
 import Link from 'next/link';
 import { getServerSession } from 'next-auth';
 import { options } from '../api/auth/[...nextauth]/options';
-import { deleteStock, shareStockWatchList } from '../../actions/actions';
 import DeleteStockButton from '../../components/DeleteStockButton';
 import ShareWatchlist from '../../components/ShareWatchlist';
 

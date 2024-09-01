@@ -1,6 +1,6 @@
 import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { hashPassword, verifyPassword } from "../../../../lib/hashPassword";
+import { verifyPassword } from "../../../../lib/hashPassword";
 
 
 //using database to store sessions
