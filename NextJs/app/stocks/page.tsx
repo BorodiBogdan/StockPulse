@@ -39,7 +39,7 @@ interface StocksManagerProps {
 
 const StocksManager: React.FC<StocksManagerProps> = ({ stocks, username }) => {
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black text-white p-6 overflow-x-hidden">
+        <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black text-white p-6 overflow-x-hidden pt-24">
             <div className="container mx-auto">
                 <h1 className="text-4xl font-bold text-center text-blue-400 mb-8">Your Saved Stocks</h1>
 

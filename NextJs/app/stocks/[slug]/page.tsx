@@ -27,7 +27,7 @@ export default async function StockDetails({ params }: { params: { slug: string 
     if (stock.timestamp === "NA") notFound();
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black text-white p-6 flex flex-col items-center justify-center">
+        <div className="pt-32 min-h-screen bg-gradient-to-br from-gray-900 to-black text-white p-6 flex flex-col items-center justify-center">
             {/* Stock Header */}
             <div className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-4xl text-center mb-8">
                 <h1 className="text-4xl font-bold text-blue-400">{params.slug}</h1>

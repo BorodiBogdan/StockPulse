@@ -78,8 +78,11 @@ export default function NavbarClient({ session }: { session: any }) {
                     <Link href='/about' className='text-xl hover:text-gray-400 transition-colors duration-200' onClick={toggleMenu}>
                         About
                     </Link>
-                    <Link href='/about' className='text-xl hover:text-gray-400 transition-colors duration-200' onClick={toggleMenu}>
+                    <Link href='/news' className='text-xl hover:text-gray-400 transition-colors duration-200' onClick={toggleMenu}>
                         News
+                    </Link>
+                    <Link href='/portofolios' className='text-xl hover:text-gray-400 transition-colors duration-200'>
+                        Portfolios
                     </Link>
                     {session ? (
                         <div className='flex gap-4 justify-center items-center'>
