@@ -51,7 +51,7 @@ export default async function PortfolioPage({ params }: { params: { slug: string
 
                     <p className="text-gray-300 mb-4">{data.description}</p>
 
-                    <div className="space-y-2">
+                    <div className="space-y-2 flex flex-col">
                         <h3 className="text-2xl font-bold text-blue-400 mb-4">Stocks:</h3>
                         {data.stock.length > 0 ? (
                             data.stock.map((stock: any, idx: number) => (

@@ -142,7 +142,7 @@ const Page = () => {
 
                 <div className='flex items-center justify-between'>
                     <button
-                        className='bg-vlue-500 hover:bg-vlue-400 text-black font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline transition duration-300 ease-in-out transform hover:scale-105'
+                        className='bg-blue-500 hover:bg-vlue-400 text-black font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline transition duration-300 ease-in-out transform hover:scale-105'
                         type='button'
                         onClick={verifyData}
                     >

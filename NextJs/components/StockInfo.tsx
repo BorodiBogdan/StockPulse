@@ -6,7 +6,7 @@ import { saveStock } from '../actions/actions';
 
 const defaultStock = {
   timestamp: 0,
-  code: 'AAPL',
+  code: 'Default Stock',
   open: 150.00,
   high: 155.00,
   low: 149.50,
@@ -46,6 +46,7 @@ export default function StockInfo({ session, username, stocks }: { session: any,
     //maximum 5 results
     setError(null);
     setSaveError(null);
+    setSavedStock(null);
     setSearchResults(results.slice(0, 5));
   }, [symbol, stocks]);
 
@@ -116,8 +117,8 @@ export default function StockInfo({ session, username, stocks }: { session: any,
   }, []);
 
   return (
-    <div className="bg-gradient-to-br h-full from-gray-900 to-black text-white flex flex-col items-center justify-center p-6 pt-24">
-      <p className='pb-10 text-3xl font-bold text-center p-2'>Search for stocks all over the world!!</p>
+    <div className="h-full bg-gray-900 text-white flex flex-col items-center justify-center p-6 pt-24">
+      <p className='pb-10 sm:pb-16 sm:text-5xl text-3xl font-bold text-center p-2'>Search for stocks all over the world!!</p>
       <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Left Side - Search Bar */}
         <div className="flex flex-col  items-start space-y-4 bg-gray-800 p-6 rounded-lg shadow-lg min-h-[270px] relative">

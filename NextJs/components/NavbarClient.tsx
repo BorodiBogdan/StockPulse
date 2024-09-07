@@ -16,7 +16,7 @@ export default function NavbarClient({ session }: { session: any }) {
     return (
         <nav className='flex justify-between items-center h-20 bg-gradient-to-br from-gray-900 to-black shadow-lg text-white fixed w-full z-50 px-8'>
             <a href='/' className='text-3xl font-extrabold tracking-wider'>
-                StockSearch
+                StockPulse
             </a>
             <div className='px-4 cursor-pointer md:hidden' onClick={toggleMenu}>
                 <svg className='w-8 h-8' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>

@@ -168,7 +168,7 @@ export async function shareStockWatchList(username: string, description: string)
         description = 'No description provided';
 
     // Get the data from the external API
-    let watchList = await fetch(process.env.FLASK_SERVER + "/home?username=" + username).then((res) => res.json());
+    let watchList = await fetch(process.env.FLASK_SERVER + "/api/home?username=" + username).then((res) => res.json());
     revalidatePath('/portofolios');
 
     //if the user has a shared a watchlist in the last 24 hours, we will not allow them to share another one
