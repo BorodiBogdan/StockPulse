@@ -40,7 +40,7 @@ export const options: NextAuthOptions = {
 
                     if (user || credentials?.username === 'admin' && credentials?.password === 'admin') {
                         console.log('Authentication successful');
-                        return { id: user.id, name: user.username, email: `${user.username}@example.com` };
+                        return { id: user.id, name: user.username, email: `${user.email}` };
                     } else {
                         console.log('Authentication failed');
                         return null;
