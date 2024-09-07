@@ -28,12 +28,14 @@ const ShareWatchlist: React.FC<Props> = ({ username }: Props) => {
                     onClick={async () => {
                         if (textarea.current?.value) {
                             try {
-                                textarea.current.value = ''
+
                                 await shareStockWatchList(username, textarea.current?.value)
+                                textarea.current.value = ''
 
                             } catch (e: any) {
-                                console.error(e.message)
+
                                 setError(e.message)
+                                textarea.current.value = ''
                             }
                         }
                     }

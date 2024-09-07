@@ -8,7 +8,7 @@ export default async function Page() {
     const stocks: any = [];
 
     // Use fetch instead of axios
-    const response = await fetch(`https://activity-finder-roan.vercel.app/api/allstocks`, {
+    const response = await fetch(process.env.NEXTAUTH_URL + `/api/allstocks`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
@@ -21,9 +21,6 @@ export default async function Page() {
     } else {
         console.error('Failed to fetch stocks');
     }
-
-    console.log(stocks);
-
 
     return (
         <div className='max-w-screen overflow-x-hidden min-h-[80vh] lg:h-screen max-h-fit'>
