@@ -75,7 +75,7 @@ export default function ChangePasswordForm({ username, email }: Props) {
                         Old password
                     </label>
                     <input
-                        type="text"
+                        type="password"
                         className="w-full px-4 py-2 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
                         id="old_password"
                         name="old_password"
@@ -88,7 +88,7 @@ export default function ChangePasswordForm({ username, email }: Props) {
                     <input
                         id="new_password"
                         name="new_password"
-                        type="text"
+                        type="password"
                         className="w-full px-4 py-2 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
                     />
                 </div>
@@ -99,6 +99,7 @@ export default function ChangePasswordForm({ username, email }: Props) {
                     <input
 
                         id="confirm_password"
+                        type="password"
                         name="confirm_password"
                         className="w-full px-4 py-2 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
                     />
