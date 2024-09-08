@@ -1,22 +1,50 @@
 'use client';
 
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { signOut } from 'next-auth/react';
 import Image from 'next/image';
 import profile_picture from '../public/images/user-photo.png';
+import { useRouter, usePathname } from 'next/navigation'; // use next/navigation instead
 
 export default function NavbarClient({ session }: { session: any }) {
     const [isOpen, setIsOpen] = useState(false); // State to handle the dropdown visibility
+    const navRef = useRef<HTMLDivElement>(null); // Ref to the navbar
+    const pathname = usePathname()
 
+    // Toggle the menu
     const toggleMenu = () => {
         setIsOpen(!isOpen);
     };
 
+    // Close the menu when the route changes
+    useEffect(() => {
+
+        setIsOpen(false);
+
+    }, [pathname]);
+
+    // Close the menu when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (navRef.current && !navRef.current.contains(event.target as Node)) {
+                setIsOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+
     return (
-        <nav className='flex justify-between items-center h-20 bg-gradient-to-br from-gray-900 to-black shadow-lg text-white fixed w-full z-50 px-8'>
+        <nav
+            ref={navRef}
+            className='flex justify-between items-center h-20 bg-gradient-to-br from-gray-900 to-black shadow-lg text-white fixed w-full z-50 px-8'
+        >
             <a href='/' className='text-3xl font-extrabold tracking-wider'>
-                StockPulse
+                Stockpulse
             </a>
             <div className='px-4 cursor-pointer md:hidden' onClick={toggleMenu}>
                 <svg className='w-8 h-8' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
@@ -27,12 +55,11 @@ export default function NavbarClient({ session }: { session: any }) {
                 <Link href='/' className='hover:text-gray-400 transition-colors duration-200'>
                     Home
                 </Link>
-                {
-                    session &&
+                {session && (
                     <Link href='/stocks' className='hover:text-gray-400 transition-colors duration-200'>
                         My stocks
                     </Link>
-                }
+                )}
                 <Link href='/portofolios' className='hover:text-gray-400 transition-colors duration-200'>
                     Portfolios
                 </Link>
@@ -62,26 +89,24 @@ export default function NavbarClient({ session }: { session: any }) {
 
             {/* Mobile menu */}
             <div
-                className={`${isOpen ? 'block' : 'hidden'
-                    } md:hidden absolute top-20 left-0 w-full bg-gradient-to-br from-gray-900 to-black text-white z-40`}
+                className={`${isOpen ? 'block' : 'hidden'} md:hidden absolute top-20 left-0 w-full bg-gradient-to-br from-gray-900 to-black text-white z-40`}
             >
                 <div className='flex flex-col items-center space-y-4 py-8'>
                     <Link href='/' className='text-xl hover:text-gray-400 transition-colors duration-200' onClick={toggleMenu}>
                         Home
                     </Link>
-                    {
-                        session &&
-                        <Link href='/stocks' className='text-xl hover:text-gray-400 transition-colors duration-200'>
+                    {session && (
+                        <Link href='/stocks' className='text-xl hover:text-gray-400 transition-colors duration-200' onClick={toggleMenu}>
                             My stocks
                         </Link>
-                    }
+                    )}
                     <Link href='/about' className='text-xl hover:text-gray-400 transition-colors duration-200' onClick={toggleMenu}>
                         About
                     </Link>
                     <Link href='/news' className='text-xl hover:text-gray-400 transition-colors duration-200' onClick={toggleMenu}>
                         News
                     </Link>
-                    <Link href='/portofolios' className='text-xl hover:text-gray-400 transition-colors duration-200'>
+                    <Link href='/portofolios' className='text-xl hover:text-gray-400 transition-colors duration-200' onClick={toggleMenu}>
                         Portfolios
                     </Link>
                     {session ? (
@@ -93,7 +118,7 @@ export default function NavbarClient({ session }: { session: any }) {
                                 }}
                             >log-out</a>
                             <Link href="/profile">
-                                <Image alt="profile" src={profile_picture} width={50} height={50} className='' />
+                                <Image alt="profile" src={profile_picture} width={50} height={50} />
                             </Link>
                         </div>
                     ) : (
