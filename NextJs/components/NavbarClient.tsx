@@ -42,7 +42,7 @@ export default function NavbarClient({ session }: { session: any }) {
       className="flex justify-between items-center h-20 bg-gradient-to-br from-gray-900 to-black shadow-lg text-white fixed w-full z-50 px-8"
     >
       <a href="/" className="text-3xl font-extrabold tracking-wider">
-        test-lab-mpp
+        StockPulse
       </a>
       <div className="px-4 cursor-pointer md:hidden" onClick={toggleMenu}>
         <svg
